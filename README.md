@@ -5,7 +5,7 @@ Quick script to automate some basic tasks done during a OSX Thick Client or Soft
 
 ## Getting Started
 
-This was tested on a OSX box and requires the following tools:
+cd /opt/Thick-Client
 
 git clone https://github.com/GainSec/Mac-OSX-Application-Fingerprint-And-Security-Tool
 
@@ -29,7 +29,6 @@ dsymutil
 ## To Do
 
 * Note it outputs all files to the directory it ran at, I'll fix that shortly.
-* Fix Regex Searches
 * Properly print Codedirectory flag
 * Change SignatureCheck to not utilize return codes and print raw output properly
 * Get EntitlementsCheck2 working

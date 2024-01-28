@@ -1,5 +1,5 @@
 # M.O.A.F.A.S.T.
-![MOAFAST](https://gainsec.com/wp-content/uploads/2023/12/L.U.N.C.H.B.O.C.K.S.png)
+![MOAFAST](https://gainsec.com/wp-content/uploads/2024/01/bottlecap.png)
 
 Quick script to automate some basic tasks done during a OSX Thick Client or Software Penetration Test. 
 

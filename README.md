@@ -40,8 +40,8 @@ This project is licensed under the GNU License - see the [LICENSE.md](LICENSE.md
 
 ## Example and How To
 
-* ./moafast-v1 --f GainSec.app/Contents/MacOS/GainSec
+* ./moafast-v1 --o ~/Desktop/Engagements/GainSec/Thick-Client/Output/ --f GainSec.app/Contents/MacOS/GainSec
 
 OR 
 
-* python3 moafast-v1.py --f GainSec.app/Contents/MacOS/GainSec
+* python3 moafast-v1.py --o ~/Desktop/Engagements/GainSec/Thick-Client/Output/ --f GainSec.app/Contents/MacOS/GainSec

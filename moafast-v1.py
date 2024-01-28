@@ -9,12 +9,14 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--f', help='OSX Application File')
 parser.add_argument('--v', action='store_true', help='Print Cleaned Output')
 parser.add_argument('--vv', action='store_true', help='Print Raw Output')
+parser.add_arugment('--o', help='Output Directory')
 
 args = parser.parse_args()
 
 f = args.f
 v = args.v
 vv = args.vv
+o = args.o
 
 '''
 Not needed atm 
@@ -22,8 +24,8 @@ ff= (f+'.app')
 '''
 
 def PIECheck():
-    with open('pieout.txt','w+') as fout:
-        with open('pieerr.txt','w+') as ferr:
+    with open(o+'pieout.txt','w+') as fout:
+        with open(o+'pieerr.txt','w+') as ferr:
             out=subprocess.run(["otool","-hv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -52,8 +54,8 @@ def PIECheck():
 #    print(errors)
 
 def ARCCheck():
-    with open('arcout.txt','w+') as fout:
-        with open('arcerr.txt','w+') as ferr:
+    with open(o+'arcout.txt','w+') as fout:
+        with open(o+'arcerr.txt','w+') as ferr:
             out=subprocess.run(["nm", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -78,8 +80,8 @@ def ARCCheck():
             print(rawoutput)
 
 def CanaryCheck():
-    with open('canout.txt','w+') as fout:
-        with open('canerr.txt','w+') as ferr:
+    with open(o+'canout.txt','w+') as fout:
+        with open(o+'canerr.txt','w+') as ferr:
             out=subprocess.run(["otool", "-Iv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -111,8 +113,8 @@ def CanaryCheck():
             print(rawoutput)
 
 def NSFileProtectionCheck():
-    with open('nsfout.txt','w+') as fout:
-        with open('nsferr.txt','w+') as ferr:
+    with open(o+'nsfout.txt','w+') as fout:
+        with open(o+'nsferr.txt','w+') as ferr:
             out=subprocess.run(["nm", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -139,8 +141,8 @@ def NSFileProtectionCheck():
             print(rawoutput)
 
 def SignatureCheck():
-    with open('sigfout.txt','w+') as fout:
-        with open('sigferr.txt','w+') as ferr:
+    with open(o+'sigfout.txt','w+') as fout:
+        with open(o+'sigferr.txt','w+') as ferr:
             out=subprocess.run(["spctl", "--assess", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -168,8 +170,8 @@ def SignatureCheck():
             print(out)
 
 def DyLibCheck():
-    with open('dylout.txt','w+') as fout:
-        with open('dylerr.txt','w+') as ferr:
+    with open(o+'dylout.txt','w+') as fout:
+        with open(o+'dylerr.txt','w+') as ferr:
             out=subprocess.run(["otool", "-L", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -194,8 +196,8 @@ def DyLibCheck():
             print(rawoutput)
 
 def EntitlmentsCheck():
-    with open('entout.txt','w+') as fout:
-        with open('enterr.txt','w+') as ferr:
+    with open(o+'entout.txt','w+') as fout:
+        with open(o+'enterr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-d", "--entitlements", "-", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -230,8 +232,8 @@ def EntitlmentsCheck():
 #Need to figure this one out
 
 def EntitlmentsCheck2():
-    with open('entout.txt','w+') as fout:
-        with open('enterr.txt','w+') as ferr:
+    with open(o+'entout.txt','w+') as fout:
+        with open(o+'enterr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-d", "--entitlements", "-", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -269,8 +271,8 @@ def EntitlmentsCheck2():
 
 #Ideally this would print the flag value found
 def CodeDirectFlagCheck():
-    with open('cdfout.txt','w+') as fout:
-        with open('cdferr.txt','w+') as ferr:
+    with open(o+'cdfout.txt','w+') as fout:
+        with open(o+'cdferr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-dv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -295,8 +297,8 @@ def CodeDirectFlagCheck():
             print(rawoutput)
 
 def DebugSymbolCheck():
-    with open('debugsymfout.txt','w+') as fout:
-        with open('debugsymferr.txt','w+') as ferr:
+    with open(o+'debugsymfout.txt','w+') as fout:
+        with open(o+'debugsymferr.txt','w+') as ferr:
             out=subprocess.run(["dsymutil", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -322,8 +324,8 @@ def DebugSymbolCheck():
             print(rawoutput)
 
 def TeamIDCheck():
-    with open('tidout.txt','w+') as fout:
-        with open('tiderr.txt','w+') as ferr:
+    with open(o+'tidout.txt','w+') as fout:
+        with open(o+'tiderr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-dv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -349,8 +351,8 @@ def TeamIDCheck():
 
 #Ideally this would print the string values
 def StringsSensDataCheck():
-    with open('stringsout.txt','w+') as fout:
-        with open('stringserr.txt','w+') as ferr:
+    with open(o+'stringsout.txt','w+') as fout:
+        with open(o+'stringserr.txt','w+') as ferr:
             out=subprocess.run(["strings", f],stdout=fout,stderr=ferr)
             # reset file to read from it
             fout.seek(0)
@@ -417,6 +419,11 @@ def Main():
     print("---------------------------------")
     print("By Jon Gaines (@GainSec)")
     print("Managing Consultant @NetSPI")
+    print("---------------------------------")
+    print("---------------------------------")
+    print("Example:")
+    print(" ")
+    print("./moafast.py --o \'~/Desktop/Engagements/GainSec/Thick-Client/Output/\' --f \'~/Desktop/Engagements/GainSec/Thick-Client/GainSec.app/Contents/MacOS/GainSec\'")
     print("---------------------------------")
     print("---------------------------------")
     PIECheck()

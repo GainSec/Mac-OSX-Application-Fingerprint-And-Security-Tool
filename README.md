@@ -28,7 +28,7 @@ dsymutil
 
 ## To Do
 
-* Note it outputs all files to the directory it ran at, I'll fix that shortly.
+* Create output template rather then have unique 3 line print statements in each function
 * Properly print Codedirectory flag
 * Change SignatureCheck to not utilize return codes and print raw output properly
 * Get EntitlementsCheck2 working

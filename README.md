@@ -1,7 +1,7 @@
 # M.O.A.F.A.S.T.
 ![MOAFAST](https://gainsec.com/wp-content/uploads/2024/01/bottlecap.png)
 
-Quick script to automate some basic tasks done during a OSX Thick Client or Software Penetration Test. 
+Quick script to automate some basic tasks done during a OSX Thick Client or Software Penetration Test. Checks for things like ARC, PIE, Canary, Codesignature Flags, NSFileProtect, Signature and more.
 
 ## Getting Started
 

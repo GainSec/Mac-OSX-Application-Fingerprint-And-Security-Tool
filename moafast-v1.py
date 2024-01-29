@@ -126,16 +126,14 @@ def NSFileProtectionCheck():
             fout.seek(0)
             # save output (if any) in variable
             rawoutput=fout.read()
-            output = re.search("NSFileProtectionComplete",rawoutput)
+            output = re.search("NSFileProtectionNone",rawoutput)
             if output == None:
-                output2 = re.search("NSFileProtectionNone", rawoutput)
-                if output2 is not None:
-                    print("!-----------------------------------!")
-                    print("NSFileProtectionComplete is not set; You've got a finding!")
-                    print("!-----------------------------------!")    
+                print("!-----------------------------------!")
+                print("NSFileProtectionNone is not set")
+                print("!-----------------------------------!")    
             else:
                 print("?-----------------------------------?")
-                print("NSFileProtection is not utilized; No Finding")
+                print("NSFileProtectionNone is utilized; Possible Finding")
                 print("?-----------------------------------?")
             # reset file to read from it
             ferr.seek(0) 
@@ -151,16 +149,16 @@ def NSFileProtectionCheck():
 def SignatureCheck():
     with open(o+'sigfout.txt','w+') as fout:
         with open(o+'sigferr.txt','w+') as ferr:
-            out=subprocess.run(["spctl", "--assess", f],stdout=fout,stderr=ferr)
+            #spctl requires the --verbose flag and it outputs to stderr as well
+            out=subprocess.run(["spctl", "--verbose", "--assess", f],stdout=fout,stderr=ferr)
             # reset file to read from it
-            fout.seek(0)
+            ferr.seek(0)
             codecheck = out.returncode
-           # print(codecheck)
             # save output (if any) in variable
-            #rawoutput=fout.read()
-            #output = re.search("returncode=3",rawoutput)
+            rawoutput=ferr.read()
+            output = re.findall("(accepted|Notarized)",rawoutput)
             #print(output)
-            if codecheck == 0:
+            if output is not None:
                 print("!-----------------------------------!")
                 print("Signature is set or valid; No Finding!")
                 print("!-----------------------------------!")    
@@ -168,14 +166,11 @@ def SignatureCheck():
                 print("?-----------------------------------?")
                 print("Signature is not set or is invalid; Possible finding")
                 print("?-----------------------------------?")
-            # reset file to read from it
-            ferr.seek(0) 
-            # save errors (if any) in variable
-            errors = ferr.read()
         if v is True:
-            print(out)
+            print(output)
         if vv is True:
-            print(out)
+            print("Return Code: ", codecheck)
+            print(rawoutput)
 
 def DyLibCheck():
     with open(o+'dylout.txt','w+') as fout:

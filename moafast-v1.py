@@ -185,7 +185,7 @@ def DyLibCheck():
             fout.seek(0)
             # save output (if any) in variable
             rawoutput=fout.read()
-           # output = re.search("_objc_release",rawoutput)
+            # need to change this to clean up the output to DyLib:Version
             if rawoutput == None:
                 print("!-----------------------------------!")
                 print("DYLibs not found; Check Syntax!!")
@@ -198,14 +198,15 @@ def DyLibCheck():
             ferr.seek(0) 
             # save errors (if any) in variable
             errors = ferr.read()
-        if v is True:
-            print("Output:")
-            print(output)
+            # not needed until output is cleaned up
+       # if v is True:
+        #    print("Output:")
+        #    print(output)
         if vv is True:
             print("Raw Output:")
             print(rawoutput)
 
-def EntitlmentsCheck():
+def EntitlementsCheck():
     with open(o+'entout.txt','w+') as fout:
         with open(o+'enterr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-d", "--entitlements", "-", f],stdout=fout,stderr=ferr)
@@ -213,72 +214,28 @@ def EntitlmentsCheck():
             fout.seek(0)
             # save output (if any) in variable
             rawoutput=fout.read()
-            output = re.search(("com.apple.security.allow-dyld-environment-variables"),rawoutput)
-            output1 = re.search(("com.apple.security.cs.disable-library-validation"),rawoutput)
-            output2 = re.search(("get-task-allow"), rawoutput)
-            output3 = re.search(("allow-unsigned-executable-memory"), rawoutput)
-            output4 = re.search(("files.downloads.read-write"), rawoutput)
-            output5 = re.search(("security.device.cameras"), rawoutput)
-            if [x for x in (output, output1, output2, output3, output4, output5) if x is None]:
-                print("!-----------------------------------!")
-                print("No insecure entitlements; Double Check the entout file though!; No Finding")
-                print("!-----------------------------------!")
-            else:
-                print("!-----------------------------------!")
-                print("Weak Entitlement:")
-                print(output, ' ', output1, ' ', output2, ' ', output3, ' ', output4, ' ', output5)
-                print("!-----------------------------------!")
-            # reset file to read from it
-            ferr.seek(0) 
-            # save errors (if any) in variable
-            errors = ferr.read()
-        if v is True:
-            print(output)
-            print(output1)
-        if vv is True:
-            print(rawoutput)
-
-'''
-#Need to figure this one out
-
-def EntitlmentsCheck2():
-    with open(o+'entout.txt','w+') as fout:
-        with open(o+'enterr.txt','w+') as ferr:
-            out=subprocess.run(["codesign", "-d", "--entitlements", "-", f],stdout=fout,stderr=ferr)
-            # reset file to read from it
-            fout.seek(0)
-            # save output (if any) in variable
-            rawoutput=fout.read()
-          #  output = re.search(("com.apple.security.allow-dyld-environment-variables"),rawoutput)
-           # output1 = re.search(("com.apple.security.cs.disable-library-validation"),rawoutput)
-            #output2 = re.search(("get-task-allow"), rawoutput)
-            #output3 = re.search(("allow-unsigned-executable-memory"), rawoutput)
-            #output4 = re.search(("files.downloads.read-write"), rawoutput)
-            #output5 = re.search(("security.device.cameras"), rawoutput)
-            entitlesearch = re.compile("(com.apple.security.allow-dyld-environment-variables|com.apple.security.cs.disable-library-validation|get-task-allow|allow-unsigned-executable-memory|files.downloads.read-write|security.device.cameras)")
+            # Need to make it print the bool aka true|false of the found entitlements
+            entitlesearch = re.compile("(com\.apple\.security\.allow\-dyld\-environment\-variables|com\.apple\.security\.cs\.disable\-library\-validation|get\-task\-allow|allow\-unsigned\-executable\-memory|files\.downloads\.read\-write|security\.device\.cameras)")
             output = entitlesearch.findall(rawoutput)
-            print(output)
-           # if output is not None:
-            for hits in output:
-                    print("!-----------------------------------!")
-                    print("Weak Entitlement:")
-                    print(output)
-                    print("!-----------------------------------!")
-            else:
+            if output is None:
                 print("!-----------------------------------!")
                 print("No insecure entitlements; Double Check the entout file though!; No Finding")
+                print("!-----------------------------------!")
+            else:
+                print("!-----------------------------------!")
+                print("Possible Weak Entitlement confirm bool is set to true:")
+                print(output)
                 print("!-----------------------------------!")
             # reset file to read from it
             ferr.seek(0) 
             # save errors (if any) in variable
             errors = ferr.read()
-        if v is True:
-            print("Output")
-            print(output1)
+            # not needed until it prints the bool value
+ #       if v is True:
+ #           print(output)
+  #          print(output1)
         if vv is True:
-            print("Raw Output:")
             print(rawoutput)
-'''
 
 #Ideally this would print the flag value found
 def CodeDirectFlagCheck():
@@ -341,11 +298,13 @@ def DebugSymbolCheck():
 def TeamIDCheck():
     with open(o+'tidout.txt','w+') as fout:
         with open(o+'tiderr.txt','w+') as ferr:
+            # for some reason this codesign command output to stderr
             out=subprocess.run(["codesign", "-dv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
-            fout.seek(0)
+            ferr.seek(0)
             # save output (if any) in variable
-            rawoutput=fout.read()
+            rawoutput=ferr.read()
+            # need to change this to search for "Team Identifier= and print that whole line"
             output = re.search("not set",rawoutput)
             if output == None:
                 print("!-----------------------------------!")
@@ -356,9 +315,9 @@ def TeamIDCheck():
                 print("Team Identifier is not declared; Finding! ")
                 print("?-----------------------------------?")
             # reset file to read from it
-            ferr.seek(0) 
+          #  ferr.seek(0) 
             # save errors (if any) in variable
-            errors = ferr.read()
+           # errors = ferr.read()
         if v is True:
             print("Output:")
             print(output)
@@ -451,8 +410,7 @@ def Main():
     NSFileProtectionCheck()
     SignatureCheck()
     DyLibCheck()
-    EntitlmentsCheck()
-#   EntitlmentsCheck2() ## NOT READY
+    EntitlementsCheck()
     CodeDirectFlagCheck()
     TeamIDCheck()
     StringsSensDataCheck()

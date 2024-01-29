@@ -266,18 +266,17 @@ def DebugSymbolCheck():
         with open(o+'debugsymferr.txt','w+') as ferr:
             out=subprocess.run(["dsymutil", f],stdout=fout,stderr=ferr)
             # reset file to read from it
-            fout.seek(0)
+            ferr.seek(0)
             # save output (if any) in variable
-            rawoutput=fout.read()
-            output = re.search("warning",rawoutput)
+            rawoutput=ferr.read()
+            output = re.search("no debug symbols",rawoutput)
             if output == None:
                 print("!-----------------------------------!")
-                print("Debug symbols do not exist; No Finding!")
+                print("Debug symbols exist.")
                 print("!-----------------------------------!")
             else:
                 print("?-----------------------------------?")
-                print("Debug symbols exist Flags are set; Finding ")
-                print(output)
+                print("Debug symbols do not exist.")
                 print("?-----------------------------------?")
             # reset file to read from it
             ferr.seek(0) 
@@ -299,8 +298,8 @@ def TeamIDCheck():
             ferr.seek(0)
             # save output (if any) in variable
             rawoutput=ferr.read()
-            # need to change this to search for "Team Identifier= and print that whole line"
             output = re.search("not set",rawoutput)
+            voutput = re.search("TeamIdentifier.+",rawoutput)
             if output == None:
                 print("!-----------------------------------!")
                 print("Team Identifier is declared")
@@ -309,13 +308,10 @@ def TeamIDCheck():
                 print("?-----------------------------------?")
                 print("Team Identifier is not declared; Finding! ")
                 print("?-----------------------------------?")
-            # reset file to read from it
-          #  ferr.seek(0) 
-            # save errors (if any) in variable
-           # errors = ferr.read()
+
         if v is True:
             print("Output:")
-            print(output)
+            print(voutput)
         if vv is True:
             print("Raw Output:")
             print(rawoutput)

@@ -212,9 +212,9 @@ def EntitlementsCheck():
             # Need to make it print the bool aka true|false of the found entitlements
             entitlesearch = re.compile("(com\.apple\.security\.allow\-dyld\-environment\-variables|com\.apple\.security\.cs\.disable\-library\-validation|get\-task\-allow|allow\-unsigned\-executable\-memory|files\.downloads\.read\-write|security\.device\.cameras)")
             output = entitlesearch.findall(rawoutput)
-            if output is None:
+            if  len(output) == 0:
                 print("!-----------------------------------!")
-                print("No insecure entitlements; Double Check the entout file though!; No Finding")
+                print("No insecure entitlements; Double Check the entout.txt file though!")
                 print("!-----------------------------------!")
             else:
                 print("!-----------------------------------!")
@@ -232,16 +232,16 @@ def EntitlementsCheck():
         if vv is True:
             print(rawoutput)
 
-#Ideally this would print the flag value found
 def CodeDirectFlagCheck():
     with open(o+'cdfout.txt','w+') as fout:
         with open(o+'cdferr.txt','w+') as ferr:
             out=subprocess.run(["codesign", "-dv", f],stdout=fout,stderr=ferr)
             # reset file to read from it
-            fout.seek(0)
+            ferr.seek(0)
             # save output (if any) in variable
-            rawoutput=fout.read()
+            rawoutput=ferr.read()
             output = re.search("flags=0x00000",rawoutput)
+            voutput = re.search("flags.+",rawoutput)
             if output == None:
                 print("!-----------------------------------!")
                 print("CodeDirectory Flags are set")
@@ -256,7 +256,7 @@ def CodeDirectFlagCheck():
             errors = ferr.read()
         if v is True:
             print("Output:")
-            print(output)
+            print(voutput)
         if vv is True:
             print("Raw Output:")
             print(rawoutput)

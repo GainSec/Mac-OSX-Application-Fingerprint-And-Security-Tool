@@ -158,13 +158,13 @@ def SignatureCheck():
             rawoutput=ferr.read()
             output = re.findall("(accepted|Notarized)",rawoutput)
             #print(output)
-            if output is not None:
+            if len(output) == 0:
                 print("!-----------------------------------!")
-                print("Signature is set or valid; No Finding!")
+                print("Signature is not set or is invalid; Possible finding")
                 print("!-----------------------------------!")    
             else:
                 print("?-----------------------------------?")
-                print("Signature is not set or is invalid; Possible finding")
+                print("Signature is set or valid; No Finding!")
                 print("?-----------------------------------?")
         if v is True:
             print(output)

@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--f', help='OSX Application File')
 parser.add_argument('--v', action='store_true', help='Print Cleaned Output')
 parser.add_argument('--vv', action='store_true', help='Print Raw Output')
-parser.add_arugment('--o', help='Output Directory')
+parser.add_argument('--o', help='Output Directory')
 
 args = parser.parse_args()
 
@@ -45,8 +45,10 @@ def PIECheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
+            print("Output:")
             print(output)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
  #   print(output)
@@ -75,8 +77,10 @@ def ARCCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
+            print("Output:")
             print(output)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def CanaryCheck():
@@ -107,9 +111,11 @@ def CanaryCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
+            print("Output:")
             print(output)
             print(output1)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def NSFileProtectionCheck():
@@ -136,8 +142,10 @@ def NSFileProtectionCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
+            print("Output:")
             print(output)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def SignatureCheck():
@@ -166,7 +174,7 @@ def SignatureCheck():
             errors = ferr.read()
         if v is True:
             print(out)
-        elif vv is True:
+        if vv is True:
             print(out)
 
 def DyLibCheck():
@@ -191,8 +199,10 @@ def DyLibCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
-            print(rawoutput)
-        elif vv is True:
+            print("Output:")
+            print(output)
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def EntitlmentsCheck():
@@ -225,7 +235,7 @@ def EntitlmentsCheck():
         if v is True:
             print(output)
             print(output1)
-        elif vv is True:
+        if vv is True:
             print(rawoutput)
 
 '''
@@ -263,9 +273,10 @@ def EntitlmentsCheck2():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
-            print(output)
+            print("Output")
             print(output1)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 '''
 
@@ -292,8 +303,10 @@ def CodeDirectFlagCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
-            print(rawoutput)
-        elif vv is True:
+            print("Output:")
+            print(output)
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def DebugSymbolCheck():
@@ -319,8 +332,10 @@ def DebugSymbolCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
-            print(rawoutput)
-        elif vv is True:
+            print("Output:")
+            print(output)
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 def TeamIDCheck():
@@ -345,8 +360,10 @@ def TeamIDCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
-            print(rawoutput)
-        elif vv is True:
+            print("Output:")
+            print(output)
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
 #Ideally this would print the string values
@@ -373,8 +390,10 @@ def StringsSensDataCheck():
             # save errors (if any) in variable
             errors = ferr.read()
         if v is True:
+            print("Output:")
             print(rawoutput)
-        elif vv is True:
+        if vv is True:
+            print("Raw Output:")
             print(rawoutput)
 
  #   print(output)

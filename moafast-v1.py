@@ -325,6 +325,7 @@ def StringsSensDataCheck():
             fout.seek(0)
             # save output (if any) in variable
             rawoutput=fout.read()
+            #Fix this regex to grab the whole string
             stringsearch = re.compile("(pass|token|secret|cred|http|api|hash|iv)",re.IGNORECASE)
             output = stringsearch.findall(rawoutput)
             if output == None:
@@ -339,9 +340,9 @@ def StringsSensDataCheck():
             ferr.seek(0) 
             # save errors (if any) in variable
             errors = ferr.read()
-        if v is True:
-            print("Output:")
-            print(rawoutput)
+    #    if v is True:
+     #       print("Output:")
+     #       print(rawoutput)
         if vv is True:
             print("Raw Output:")
             print(rawoutput)

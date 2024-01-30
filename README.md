@@ -29,8 +29,6 @@ dsymutil
 ## To Do
 
 * Create output template rather then have unique 3 line print statements in each function
-* Add function to add / to output directory
-* add function to create output directory
 * add function to run against all files in a dir
 * ??
 

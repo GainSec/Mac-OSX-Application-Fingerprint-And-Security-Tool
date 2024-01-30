@@ -23,6 +23,12 @@ Not needed atm
 ff= (f+'.app')
 '''
 
+def OutputDirCheck():
+    OutputPath = o
+    path = pathlib.Path(OutputPath)
+    path.mkdir(parents=True)
+    print("Output is being saved to: ", OutputPath)
+
 def PIECheck():
     with open(o+'pieout.txt','w+') as fout:
         with open(o+'pieerr.txt','w+') as ferr:
@@ -393,9 +399,10 @@ def Main():
     print("---------------------------------")
     print("Example:")
     print(" ")
-    print("./moafast.py --o \'~/Desktop/Engagements/GainSec/Thick-Client/Output/\' --f \'~/Desktop/Engagements/GainSec/Thick-Client/GainSec.app/Contents/MacOS/GainSec\'")
+    print("./moafast.py --o \~/Desktop\/Engagements\/GainSec\/Thick-Client\/Output\/ --f \'~/Desktop/Engagements/GainSec/Thick-Client/GainSec.app/Contents/MacOS/GainSec\'")
     print("---------------------------------")
     print("---------------------------------")
+    OutputDirCheck()
     PIECheck()
     ARCCheck()
     CanaryCheck()

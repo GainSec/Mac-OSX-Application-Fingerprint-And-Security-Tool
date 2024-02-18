@@ -9,6 +9,8 @@ cd /opt/Thick-Client
 
 git clone https://github.com/GainSec/Mac-OSX-Application-Fingerprint-And-Security-Tool
 
+cd Mac-OSX-Application-Fingerprint-And-Security-Tool
+
 chmod +x moafast-v1.py
 
 ### Prerequisites
@@ -24,7 +26,7 @@ dsymutil
 
 ## Author
 
-* **Jon Gaines** - *Creator* - [GainSec](https://github.com/GainSec) - Managing Consultant @NetSPI
+* **Jon Gaines** - *Creator* - [GainSec](https://github.com/GainSec) - Managing Security Consultant @NetSPI
 
 ## To Do
 
